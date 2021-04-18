@@ -12,10 +12,10 @@ public class UsuarioDeudaRepo {
 
     private final Conexion conexion = new Conexion();
 
-    public Flux<ResponseEntity> getDeudasUsuario(String value) {
+    public Mono<ResponseEntity<String>> getDeudasUsuario(String value) {
         return conexion.ejecutarProcedimiento("SP_DEUDAS_USUARIO", value)
                 .flatMap(jsonObject ->
-                        Mono.just(ResponseEntity.status(200).body(new Respuesta(0, "Deudas obtenidas", jsonObject.get("data").getAsString())))
-                );
+                        Mono.just(ResponseEntity.status(200).body(jsonObject))
+                ).single();
     }
 }

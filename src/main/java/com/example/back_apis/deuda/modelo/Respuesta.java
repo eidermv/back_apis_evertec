@@ -6,6 +6,11 @@ public class Respuesta {
     private String data;
 
 
+    public Respuesta() {
+        this.error = 0;
+        this.mensaje = "";
+        this.data = "";
+    }
     public Respuesta(int error, String mensaje, String data) {
         this.error = error;
         this.mensaje = mensaje;
@@ -34,5 +39,10 @@ public class Respuesta {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    @Override
+    public String toString() {
+        return "{ \"error\":" + error +", \"mensaje\":" + mensaje + ", \"data\":" + data + "}";
     }
 }

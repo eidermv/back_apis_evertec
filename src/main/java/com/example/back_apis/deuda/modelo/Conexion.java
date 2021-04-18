@@ -1,6 +1,7 @@
 package com.example.back_apis.deuda.modelo;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.r2dbc.spi.Batch;
 import io.r2dbc.spi.Connection;
@@ -37,17 +38,20 @@ public class Conexion {
         }
     }
 
-    public Flux<JsonObject> ejecutarProcedimiento(String sp, String data) {
+    public Flux<String> ejecutarProcedimiento(String sp, String data) {
 
         try {
             initConnectionFactory();
             //Initialize a Connection
             conn = connFactory.create().block();
 
+            String sql = "";
+
             //Create a Batch Object
-            if (data.equals("")) {
+            if (!data.equals("")) {
                 data += ",";
             }
+            System.out.println("-------------" + data);
             Batch batch = conn.createBatch();
             batch = batch.add("begin not atomic\n" +
                     "declare rta LONGTEXT default '';\n" +
@@ -61,7 +65,7 @@ public class Conexion {
             return Flux.from(batch.execute()).flatMap(result -> result.map( (row, metadata) -> {
                 //audArr.addProperty("error", 0);
                 //audArr.addProperty("mensaje", "consulta exitosa");
-                return (new Gson()).fromJson(row.get(0, String.class), JsonObject.class);
+                return row.get(0, String.class);
             }));
             /*for (String contact_entry : Flux.from(batch.execute()).flatMap(res -> res.map( (row, metadata) -> {
                 JsonObject audArr = (new Gson()).fromJson(row.get(0, String.class), JsonObject.class);
@@ -81,7 +85,9 @@ public class Conexion {
             conn.close();
         }
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("data", -2);
-        return Flux.just(jsonObject);
+        jsonObject.addProperty("error", -1);
+        jsonObject.addProperty("mensaje", "Error consultando");
+        jsonObject.add("data", new JsonArray());
+        return Flux.just(jsonObject.toString());
     }
 }
