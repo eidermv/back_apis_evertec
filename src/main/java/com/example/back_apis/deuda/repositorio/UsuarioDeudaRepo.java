@@ -20,7 +20,7 @@ public class UsuarioDeudaRepo {
     }
 
     public Mono<ResponseEntity<String>> getUsuarios(String value) {
-        return conexion.ejecutarProcedimiento("SP_LISTAR_USUARIOS", value)
+        return conexion.ejecutarProcedimiento("SP_LISTAR_USUARIOS", "")
                 .flatMap(jsonObject ->
                         Mono.just(ResponseEntity.status(200).body(jsonObject))
                 ).single();

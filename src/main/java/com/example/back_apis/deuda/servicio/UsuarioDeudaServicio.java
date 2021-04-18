@@ -22,7 +22,7 @@ public class UsuarioDeudaServicio {
     }
 
     public Mono<ResponseEntity<String>> getInsUpdUsuario(String value) {
-        return usuarioDeudaRepo.getInsUpdUsuario(value);
+        return usuarioDeudaRepo.getInsUpdUsuario("'"+value+"'");
     }
 
     public Mono<ResponseEntity<String>> eliminarDeuda(String value) {
@@ -30,7 +30,7 @@ public class UsuarioDeudaServicio {
     }
 
     public Mono<ResponseEntity<String>> autenticacion(String value) {
-        return usuarioDeudaRepo.auth(value);
+        return usuarioDeudaRepo.auth("'"+value+"'");
     }
 
     public Mono<ResponseEntity<String>> autenticacionCierre(String value) {

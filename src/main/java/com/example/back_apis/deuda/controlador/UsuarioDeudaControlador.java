@@ -39,8 +39,8 @@ public class UsuarioDeudaControlador {
         return usuarioDeudaServicio.autenticacion(body);
     }
 
-    @PostMapping(value = "/authCierre", produces = "application/json")
-    public Mono<ResponseEntity<String>> autenticacionCierre(@RequestBody String body) {
-        return usuarioDeudaServicio.autenticacionCierre(body);
+    @GetMapping(value = "/authCierre", produces = "application/json")
+    public Mono<ResponseEntity<String>> autenticacionCierre(@RequestParam String value) {
+        return usuarioDeudaServicio.autenticacionCierre(value);
     }
 }
