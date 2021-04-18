@@ -25,4 +25,11 @@ public class UsuarioDeudaRepo {
                         Mono.just(ResponseEntity.status(200).body(jsonObject))
                 ).single();
     }
+
+    public Mono<ResponseEntity<String>> getInsUpdUsuario(String value) {
+        return conexion.ejecutarProcedimiento("SP_INS_UPD_US_DEU", value)
+                .flatMap(jsonObject ->
+                        Mono.just(ResponseEntity.status(200).body(jsonObject))
+                ).single();
+    }
 }

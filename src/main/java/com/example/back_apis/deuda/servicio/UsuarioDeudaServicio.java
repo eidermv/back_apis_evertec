@@ -20,4 +20,8 @@ public class UsuarioDeudaServicio {
     public Mono<ResponseEntity<String>> getUsuarios(String value) {
         return usuarioDeudaRepo.getUsuarios(value);
     }
+
+    public Mono<ResponseEntity<String>> getInsUpdUsuario(String value) {
+        return usuarioDeudaRepo.getInsUpdUsuario(value);
+    }
 }

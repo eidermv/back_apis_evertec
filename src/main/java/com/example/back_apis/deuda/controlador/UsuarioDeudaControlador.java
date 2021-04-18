@@ -23,4 +23,9 @@ public class UsuarioDeudaControlador {
     public Mono<ResponseEntity<String>> listarUsuarios(@RequestParam String value) {
         return usuarioDeudaServicio.getUsuarios(value);
     }
+
+    @PostMapping(value = "/agregarActUsDe", produces = "application/json")
+    public Mono<ResponseEntity<String>> agregarActUsDe(@RequestBody String body) {
+        return usuarioDeudaServicio.getInsUpdUsuario(body);
+    }
 }
