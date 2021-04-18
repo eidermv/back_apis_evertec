@@ -47,4 +47,11 @@ public class UsuarioDeudaRepo {
                 ).single();
     }
 
+    public Mono<ResponseEntity<String>> authCierre(String value) {
+        return conexion.ejecutarProcedimiento("SP_LOGUOT", value)
+                .flatMap(jsonObject ->
+                        Mono.just(ResponseEntity.status(200).body(jsonObject))
+                ).single();
+    }
+
 }

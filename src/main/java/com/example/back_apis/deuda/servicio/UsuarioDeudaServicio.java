@@ -32,4 +32,8 @@ public class UsuarioDeudaServicio {
     public Mono<ResponseEntity<String>> autenticacion(String value) {
         return usuarioDeudaRepo.auth(value);
     }
+
+    public Mono<ResponseEntity<String>> autenticacionCierre(String value) {
+        return usuarioDeudaRepo.authCierre(value);
+    }
 }
