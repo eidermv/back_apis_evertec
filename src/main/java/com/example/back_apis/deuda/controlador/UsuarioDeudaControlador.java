@@ -36,6 +36,6 @@ public class UsuarioDeudaControlador {
 
     @PostMapping(value = "/auth", produces = "application/json")
     public Mono<ResponseEntity<String>> autenticacion(@RequestBody String body) {
-        return usuarioDeudaServicio.autenticacion(value);
+        return usuarioDeudaServicio.autenticacion(body);
     }
 }
