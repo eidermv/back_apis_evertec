@@ -18,4 +18,11 @@ public class UsuarioDeudaRepo {
                         Mono.just(ResponseEntity.status(200).body(jsonObject))
                 ).single();
     }
+
+    public Mono<ResponseEntity<String>> getUsuarios(String value) {
+        return conexion.ejecutarProcedimiento("SP_LISTAR_USUARIOS", value)
+                .flatMap(jsonObject ->
+                        Mono.just(ResponseEntity.status(200).body(jsonObject))
+                ).single();
+    }
 }

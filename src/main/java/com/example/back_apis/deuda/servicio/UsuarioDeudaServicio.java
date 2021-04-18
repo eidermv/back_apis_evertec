@@ -16,4 +16,8 @@ public class UsuarioDeudaServicio {
     public Mono<ResponseEntity<String>> getDeudasUsuario(String value) {
         return usuarioDeudaRepo.getDeudasUsuario(value);
     }
+
+    public Mono<ResponseEntity<String>> getUsuarios(String value) {
+        return usuarioDeudaRepo.getUsuarios(value);
+    }
 }

@@ -15,7 +15,12 @@ public class UsuarioDeudaControlador {
     private UsuarioDeudaServicio usuarioDeudaServicio;
 
     @GetMapping(value = "/listarDeudas", produces = "application/json")
-    public Mono<ResponseEntity<String>> listar(@RequestParam String value) {
+    public Mono<ResponseEntity<String>> listarDeudaUsuario(@RequestParam String value) {
         return usuarioDeudaServicio.getDeudasUsuario(value);
+    }
+
+    @GetMapping(value = "/listarUsuario", produces = "application/json")
+    public Mono<ResponseEntity<String>> listarUsuarios(@RequestParam String value) {
+        return usuarioDeudaServicio.getUsuarios(value);
     }
 }
