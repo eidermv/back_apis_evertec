@@ -28,4 +28,9 @@ public class UsuarioDeudaControlador {
     public Mono<ResponseEntity<String>> agregarActUsDe(@RequestBody String body) {
         return usuarioDeudaServicio.getInsUpdUsuario(body);
     }
+
+    @DeleteMapping(value = "/eliminarDeuda", produces = "application/json")
+    public Mono<ResponseEntity<String>> eliminarDeuda(@RequestParam String value) {
+        return usuarioDeudaServicio.eliminarDeuda(value);
+    }
 }

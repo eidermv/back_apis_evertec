@@ -32,4 +32,12 @@ public class UsuarioDeudaRepo {
                         Mono.just(ResponseEntity.status(200).body(jsonObject))
                 ).single();
     }
+
+    public Mono<ResponseEntity<String>> eliminarDeuda(String value) {
+        return conexion.ejecutarProcedimiento("SP_DEL_DEUDA", value)
+                .flatMap(jsonObject ->
+                        Mono.just(ResponseEntity.status(200).body(jsonObject))
+                ).single();
+    }
+
 }
