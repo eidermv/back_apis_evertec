@@ -33,4 +33,9 @@ public class UsuarioDeudaControlador {
     public Mono<ResponseEntity<String>> eliminarDeuda(@RequestParam String value) {
         return usuarioDeudaServicio.eliminarDeuda(value);
     }
+
+    @PostMapping(value = "/auth", produces = "application/json")
+    public Mono<ResponseEntity<String>> autenticacion(@RequestParam String value) {
+        return usuarioDeudaServicio.autenticacion(value);
+    }
 }
