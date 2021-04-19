@@ -43,6 +43,6 @@ public class Respuesta {
 
     @Override
     public String toString() {
-        return "{ \"error\":" + error +", \"mensaje\":" + mensaje + ", \"data\":" + data + "}";
+        return "{ \"error\":" + error +", \"mensaje\":\"" + mensaje + "\", \"data\":" + data + "}";
     }
 }

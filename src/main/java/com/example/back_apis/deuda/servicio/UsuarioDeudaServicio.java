@@ -13,6 +13,9 @@ public class UsuarioDeudaServicio {
     @Autowired
     private UsuarioDeudaRepo usuarioDeudaRepo;
 
+    @Autowired
+    private AuthServicio authServicio;
+
     public Mono<ResponseEntity<String>> getDeudasUsuario(String value) {
         return usuarioDeudaRepo.getDeudasUsuario(value);
     }
@@ -29,8 +32,8 @@ public class UsuarioDeudaServicio {
         return usuarioDeudaRepo.eliminarDeuda(value);
     }
 
-    public Mono<ResponseEntity<String>> autenticacion(String value) {
-        return usuarioDeudaRepo.auth("'"+value+"'");
+    public Mono<ResponseEntity> autenticacion(String value) {
+        return authServicio.getAuth(value);
     }
 
     public Mono<ResponseEntity<String>> autenticacionCierre(String value) {
