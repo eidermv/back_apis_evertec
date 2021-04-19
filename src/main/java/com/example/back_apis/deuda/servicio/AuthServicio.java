@@ -54,7 +54,7 @@ public class AuthServicio {
                 case "Basic" -> {
                     if (authStr.length > 1) {
                         authStr[1] = new String(b64dec.decode(authStr[1].getBytes("UTF-8")), "UTF-8");
-                        System.out.println("------ " + authStr[1]);
+                        // System.out.println("------ " + authStr[1]);
                         //JsonObject jsonObject = new JsonObject();
                         //jsonObject.addProperty("usuario", authStr[1].split(":")[0].trim());
                         //jsonObject.addProperty("contrasena", authStr[1].split(":")[1].trim());
@@ -180,7 +180,7 @@ public class AuthServicio {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY.getBytes()).build()
                 .parseClaimsJws(jwt).getBody();
-        System.out.println("-- "+claims.getIssuer());
+        //System.out.println("-- "+claims.getIssuer());
         //Jwts.parserBuilder().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY)).build().parseClaimsJws(jwt).getBody();
         return claims;
     }
@@ -198,7 +198,7 @@ public class AuthServicio {
                         throw new Exception();
                     }
                 } catch (Exception e) {
-                    System.out.println("El token no es válido");
+                    //System.out.println("El token no es válido");
                     return ResponseEntity.status(401).body(new Respuesta(-3, "Usuario no autorizado", null));
                 }
             }

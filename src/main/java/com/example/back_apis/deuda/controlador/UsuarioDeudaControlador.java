@@ -1,10 +1,7 @@
 package com.example.back_apis.deuda.controlador;
 
-import com.example.back_apis.deuda.modelo.Respuesta;
 import com.example.back_apis.deuda.servicio.AuthServicio;
 import com.example.back_apis.deuda.servicio.UsuarioDeudaServicio;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +18,7 @@ public class UsuarioDeudaControlador {
     private AuthServicio authServicio;
 
     @GetMapping(value = "/listarDeudas", produces = "application/json")
-    public Mono<ResponseEntity<String>> listarDeudaUsuario(@RequestParam String value, @RequestHeader("Authorization") String auth) {
+    public Mono listarDeudaUsuario(@RequestParam String value, @RequestHeader("Authorization") String auth) {
         ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
         if (responseEntity.getStatusCodeValue() == 200 ) {
             return usuarioDeudaServicio.getDeudasUsuario(value);
@@ -32,7 +29,7 @@ public class UsuarioDeudaControlador {
     }
 
     @GetMapping(value = "/listarUsuario", produces = "application/json")
-    public Mono<ResponseEntity<String>> listarUsuarios(@RequestParam String value, @RequestHeader("Authorization") String auth) {
+    public Mono listarUsuarios(@RequestParam String value, @RequestHeader("Authorization") String auth) {
 
         ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
         if (responseEntity.getStatusCodeValue() == 200 ) {
@@ -43,7 +40,7 @@ public class UsuarioDeudaControlador {
     }
 
     @PostMapping(value = "/agregarActUsDe", produces = "application/json")
-    public Mono<ResponseEntity<String>> agregarActUsDe(@RequestBody String body, @RequestHeader("Authorization") String auth) {
+    public Mono agregarActUsDe(@RequestBody String body, @RequestHeader("Authorization") String auth) {
         ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
         if (responseEntity.getStatusCodeValue() == 200 ) {
             return usuarioDeudaServicio.getInsUpdUsuario(body);
@@ -53,7 +50,7 @@ public class UsuarioDeudaControlador {
     }
 
     @DeleteMapping(value = "/eliminarDeuda", produces = "application/json")
-    public Mono<ResponseEntity<String>> eliminarDeuda(@RequestParam String value, @RequestHeader("Authorization") String auth) {
+    public Mono eliminarDeuda(@RequestParam String value, @RequestHeader("Authorization") String auth) {
         ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
         if (responseEntity.getStatusCodeValue() == 200 ) {
             return usuarioDeudaServicio.eliminarDeuda(value);
@@ -68,7 +65,7 @@ public class UsuarioDeudaControlador {
     }
 
     @GetMapping(value = "/authCierre", produces = "application/json")
-    public Mono<ResponseEntity<String>> autenticacionCierre(@RequestParam String value, @RequestHeader("Authorization") String auth) {
+    public Mono autenticacionCierre(@RequestParam String value, @RequestHeader("Authorization") String auth) {
         ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
         if (responseEntity.getStatusCodeValue() == 200 ) {
             return usuarioDeudaServicio.autenticacionCierre(value);
