@@ -25,7 +25,7 @@ public class UsuarioDeudaServicio {
     }
 
     public Mono<ResponseEntity<String>> getInsUpdUsuario(String value) {
-        return usuarioDeudaRepo.getInsUpdUsuario("'"+value+"'");
+        return usuarioDeudaRepo.getInsUpdUsuario(value);
     }
 
     public Mono<ResponseEntity<String>> eliminarDeuda(String value) {

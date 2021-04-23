@@ -49,7 +49,8 @@ public class Conexion {
 
             //Create a Batch Object
             if (!data.equals("")) {
-                data += ",";
+                data = "'" + data + "',";
+                data = data.replace("''", "'");
             }
             System.out.println("-------------" + data);
             Batch batch = conn.createBatch();
