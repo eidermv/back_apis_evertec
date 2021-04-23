@@ -36,6 +36,10 @@ public class UsuarioDeudaServicio {
         return usuarioDeudaRepo.actualizarDeuda(value);
     }
 
+    public Mono<ResponseEntity<String>> crearDeuda(String value) {
+        return usuarioDeudaRepo.crearDeuda(value);
+    }
+
 
     public Mono<ResponseEntity> autenticacion(String value) {
         return authServicio.getAuth(value);

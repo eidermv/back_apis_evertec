@@ -59,6 +59,16 @@ public class UsuarioDeudaControlador {
         }
     }
 
+    @PostMapping(value = "/crearDeuda", produces = "application/json")
+    public Mono crearDeuda(@RequestBody String body, @RequestHeader("Authorization") String auth) {
+        ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
+        if (responseEntity.getStatusCodeValue() == 200 ) {
+            return usuarioDeudaServicio.crearDeuda(body);
+        } else {
+            return Mono.just(responseEntity);
+        }
+    }
+
     @DeleteMapping(value = "/eliminarDeuda", produces = "application/json")
     public Mono eliminarDeuda(@RequestParam String value, @RequestHeader("Authorization") String auth) {
         ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
