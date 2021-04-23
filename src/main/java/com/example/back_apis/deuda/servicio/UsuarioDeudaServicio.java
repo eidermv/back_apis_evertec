@@ -32,6 +32,11 @@ public class UsuarioDeudaServicio {
         return usuarioDeudaRepo.eliminarDeuda(value);
     }
 
+    public Mono<ResponseEntity<String>> actualizarDeuda(String value) {
+        return usuarioDeudaRepo.actualizarDeuda(value);
+    }
+
+
     public Mono<ResponseEntity> autenticacion(String value) {
         return authServicio.getAuth(value);
     }

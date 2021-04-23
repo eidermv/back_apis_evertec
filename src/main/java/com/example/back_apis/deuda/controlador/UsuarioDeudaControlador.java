@@ -49,6 +49,16 @@ public class UsuarioDeudaControlador {
         }
     }
 
+    @PutMapping(value = "/actualizarDeuda", produces = "application/json")
+    public Mono actualizarDeuda(@RequestBody String body, @RequestHeader("Authorization") String auth) {
+        ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
+        if (responseEntity.getStatusCodeValue() == 200 ) {
+            return usuarioDeudaServicio.actualizarDeuda(body);
+        } else {
+            return Mono.just(responseEntity);
+        }
+    }
+
     @DeleteMapping(value = "/eliminarDeuda", produces = "application/json")
     public Mono eliminarDeuda(@RequestParam String value, @RequestHeader("Authorization") String auth) {
         ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
