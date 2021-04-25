@@ -84,11 +84,26 @@ public class UsuarioDeudaControlador {
         return usuarioDeudaServicio.autenticacion(auth);
     }
 
+    @PutMapping(value = "/refreshAuth", produces = "application/json")
+    public Mono refrescarToken(@RequestHeader("Authorization") String auth) {
+        return usuarioDeudaServicio.autenticacion(auth);
+    }
+
     @GetMapping(value = "/authCierre", produces = "application/json")
     public Mono autenticacionCierre(@RequestParam String value, @RequestHeader("Authorization") String auth) {
         ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
         if (responseEntity.getStatusCodeValue() == 200 ) {
             return usuarioDeudaServicio.autenticacionCierre(value);
+        } else {
+            return Mono.just(responseEntity);
+        }
+    }
+
+    @GetMapping(value = "/consultarDeudas", produces = "application/json")
+    public Mono consultarDeudas(@RequestParam String value, @RequestHeader("Authorization") String auth) {
+        ResponseEntity responseEntity = authServicio.comprobarAuth(auth);
+        if (responseEntity.getStatusCodeValue() == 200 ) {
+            return usuarioDeudaServicio.consultarDeudas(value);
         } else {
             return Mono.just(responseEntity);
         }

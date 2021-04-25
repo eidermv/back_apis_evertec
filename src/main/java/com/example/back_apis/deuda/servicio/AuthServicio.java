@@ -70,7 +70,7 @@ public class AuthServicio {
                                     if (usrJson.get("error").getAsInt() == 0) {
                                         //String username1 = usrJson.get("username").getAsString();
                                         String role = "admin";
-                                        int tiempo = 54000000; //15 horas
+                                        int tiempo = 120000;//54000000; //15 horas
                                         String payload = usrJson.get("data").toString();
 
                                         JsonObject responseJson1 = new JsonObject();
@@ -124,11 +124,83 @@ public class AuthServicio {
                         return Mono.just(ResponseEntity.status(401).body(new Respuesta(-1, "Sin datos de autenticación", null)));
                     }
                 }
+                case "Refresh" -> {
+                    if (authStr.length > 1) {
+                        authStr[1] = new String(b64dec.decode(authStr[1].getBytes("UTF-8")), "UTF-8");
+
+                        Mono<ResponseEntity<String>> user1 = usuarioDeudaRepo.refreshAuth("'"+authStr[1]+"'");
+
+
+                        String finalJwtIdCode = jwtIdCode;
+                        return user1.doOnNext(System.out::println).map(serverResponse -> {
+                            if (serverResponse.getStatusCodeValue() == 200) {
+
+                                JsonObject usrJson = new Gson().fromJson(serverResponse.getBody(), JsonObject.class);
+                                try {
+                                    if (usrJson.get("error").getAsInt() == 0) {
+                                        //String username1 = usrJson.get("username").getAsString();
+                                        String role = "admin";
+                                        int tiempo = 120000;//54000000; //15 horas
+                                        String payload = usrJson.get("data").toString();
+
+                                        JsonObject responseJson1 = new JsonObject();
+                                        JsonObject dataJson1 = new JsonObject();
+
+                                        //if (user.getStatus()) {
+                                        String jwtStr = createJWT("Evertec-prueba", finalJwtIdCode, JWT_ISSUER, payload,
+                                                role, tiempo);
+                                        responseJson1.addProperty("mensaje", "Token actualizado");
+                                        responseJson1.addProperty("error", 0);
+                                        //responseJson1.addProperty("data", usrJson.get("data").toString());
+                                        responseJson1.addProperty("key", jwtStr);
+                                        dataJson1 = new Gson().fromJson(payload, JsonObject.class);
+                                        responseJson1.add("data", dataJson1);
+                                        return ResponseEntity.status(200).body(responseJson1.toString());
+                                    } else if (usrJson.get("error").getAsInt() == -1) {
+                                        return ResponseEntity.status(401).body(new Respuesta(-1, "Error ejecutando SP, " + usrJson.get("mensaje").getAsString(), null));
+                                    } else {
+                                        return ResponseEntity.status(401).body(new Respuesta(-1, "" + usrJson.get("mensaje").getAsString(), null));
+                                    }
+
+                                /*} else {
+                                    throw new Exception("Usuario no válido");
+                                }*/
+                                } catch (UnsupportedOperationException e) {
+                                    return ResponseEntity.status(200).body(new Respuesta(-1, "Servicio no disponible", null));
+                                }
+
+
+                            } else {
+                                try {
+                                    throw new Exception("Sin respuesta del servidor de validación");
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                return ResponseEntity.status(401).body(new Respuesta(-1, "Sin respuesta del servidor de validación", null));
+
+                                //return serverResponse;
+                            }
+                            //return Mono.just(serverResponse);
+
+                        });
+
+
+                    } else {
+                        try {
+                            throw new Exception("Sin datos de autenticación");
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return Mono.just(ResponseEntity.status(401).body(new Respuesta(-1, "Sin datos de autenticación", null)));
+                    }
+                }
                 default -> {
                     //responseJson.addProperty("mensaje", "Usuario no autorizado");
                     //responseJson.addProperty("error", -2);
                     //return Response.status(401).entity(responseJson.toString()).build();
-                    return Mono.just(ResponseEntity.status(401).body(new Respuesta(-2, "Usuario no autorizado", null)));
+                    return Mono.just(ResponseEntity.status(401).body(new Respuesta(-2, "Usuario no se puede autorizar", null)));
 
                 }
             }

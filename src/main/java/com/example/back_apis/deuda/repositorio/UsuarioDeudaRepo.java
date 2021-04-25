@@ -61,6 +61,20 @@ public class UsuarioDeudaRepo {
                 ).single();
     }
 
+    public Mono<ResponseEntity<String>> consultarDeudas(String value) {
+        return conexion.ejecutarProcedimiento("SP_CONSULTAR_DEU_US", value)
+                .flatMap(jsonObject ->
+                        Mono.just(ResponseEntity.status(200).body(jsonObject))
+                ).single();
+    }
+
+    public Mono<ResponseEntity<String>> refreshAuth(String value) {
+        return conexion.ejecutarProcedimiento("SP_VERIFICACION_LOGIN", value)
+                .flatMap(jsonObject ->
+                        Mono.just(ResponseEntity.status(200).body(jsonObject))
+                ).single();
+    }
+
     public Mono<ResponseEntity<String>> authCierre(String value) {
         return conexion.ejecutarProcedimiento("SP_LOGUOT", value)
                 .flatMap(jsonObject ->
