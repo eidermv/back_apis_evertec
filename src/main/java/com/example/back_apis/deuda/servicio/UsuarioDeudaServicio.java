@@ -16,6 +16,9 @@ public class UsuarioDeudaServicio {
     @Autowired
     private AuthServicio authServicio;
 
+    @Autowired
+    private ValidacionServicio validacion;
+
     public Mono<ResponseEntity<String>> getDeudasUsuario(String value) {
         return usuarioDeudaRepo.getDeudasUsuario(value);
     }
@@ -29,15 +32,33 @@ public class UsuarioDeudaServicio {
     }
 
     public Mono<ResponseEntity<String>> eliminarDeuda(String value) {
-        return usuarioDeudaRepo.eliminarDeuda(value);
+        System.out.println("llega aqui -------1");
+        Respuesta respuesta = validacion.deudaEliminar(value);
+        if (respuesta.getError() == 0) {
+            return usuarioDeudaRepo.eliminarDeuda(value);
+        } else {
+            return Mono.just(ResponseEntity.status(200).body(respuesta.toString()));
+        }
+
     }
 
     public Mono<ResponseEntity<String>> actualizarDeuda(String value) {
-        return usuarioDeudaRepo.actualizarDeuda(value);
+        Respuesta respuesta = validacion.deudaEditar(value);
+        if (respuesta.getError() == 0) {
+            return usuarioDeudaRepo.actualizarDeuda(value);
+        } else {
+            return Mono.just(ResponseEntity.status(200).body(respuesta.toString()));
+        }
+
     }
 
     public Mono<ResponseEntity<String>> crearDeuda(String value) {
-        return usuarioDeudaRepo.crearDeuda(value);
+        Respuesta respuesta = validacion.deudaCrear(value);
+        if (respuesta.getError() == 0) {
+            return usuarioDeudaRepo.crearDeuda(value);
+        } else {
+            return Mono.just(ResponseEntity.status(200).body(respuesta.toString()));
+        }
     }
 
     public Mono<ResponseEntity<String>> consultarDeudas(String value) {

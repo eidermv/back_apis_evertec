@@ -70,7 +70,7 @@ public class AuthServicio {
                                     if (usrJson.get("error").getAsInt() == 0) {
                                         //String username1 = usrJson.get("username").getAsString();
                                         String role = "admin";
-                                        int tiempo = 120000;//54000000; //15 horas
+                                        int tiempo = 1800000;//54000000; //15 horas
                                         String payload = usrJson.get("data").toString();
 
                                         JsonObject responseJson1 = new JsonObject();
@@ -140,7 +140,7 @@ public class AuthServicio {
                                     if (usrJson.get("error").getAsInt() == 0) {
                                         //String username1 = usrJson.get("username").getAsString();
                                         String role = "admin";
-                                        int tiempo = 120000;//54000000; //15 horas
+                                        int tiempo = 1800000;//54000000; //15 horas
                                         String payload = usrJson.get("data").toString();
 
                                         JsonObject responseJson1 = new JsonObject();
