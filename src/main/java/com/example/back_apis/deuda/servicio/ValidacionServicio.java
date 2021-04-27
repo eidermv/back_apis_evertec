@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ValidacionServicio {
+    /*
+    ================================================
+    Metodo que me permite realizar la validacion de campos entrantes para crear
+    ================================================
+     */
     public Respuesta deudaCrear(String deuda) {
         JsonObject d = new Gson().fromJson(deuda, JsonObject.class);
         int contador = 0;
@@ -65,6 +70,11 @@ public class ValidacionServicio {
         }
     }
 
+    /*
+    ================================================
+    Metodo que me permite realizar la validacion de campos entrantes para editar
+    ================================================
+     */
     public Respuesta deudaEditar(String deuda) {
         JsonObject d = new Gson().fromJson(deuda, JsonObject.class);
         int contador = 0;
@@ -117,6 +127,11 @@ public class ValidacionServicio {
         }
     }
 
+    /*
+    ================================================
+    Metodo que me permite realizar la validacion de campos entrantes para eliminar
+    ================================================
+     */
     public Respuesta deudaEliminar(String deuda) {
 
         JsonObject d = new Gson().fromJson(deuda.replace("'", ""), JsonObject.class);

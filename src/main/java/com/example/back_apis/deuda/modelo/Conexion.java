@@ -16,6 +16,11 @@ public class Conexion {
     private static MariadbConnectionFactory connFactory;
     private static Connection conn;
 
+    /*
+    ================================================
+    Metodo que me permite realizar la conexion a la base de datos
+    ================================================
+     */
     public void initConnectionFactory() {
 
         try {
@@ -38,6 +43,11 @@ public class Conexion {
         }
     }
 
+    /*
+    ================================================
+    Metodo que me permite llamar un SP por medio de un batch
+    ================================================
+     */
     public Flux<String> ejecutarProcedimiento(String sp, String data) {
 
         try {

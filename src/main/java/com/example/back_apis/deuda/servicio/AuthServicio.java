@@ -37,6 +37,11 @@ public class AuthServicio {
     private UsuarioDeudaRepo usuarioDeudaRepo;
 
 
+    /*
+    ================================================
+    Metodo que verifica informacion y dependiente del tipo de autenticacion crea un token
+    ================================================
+     */
     public Mono<ResponseEntity> getAuth(String auth) {
 
         try {
